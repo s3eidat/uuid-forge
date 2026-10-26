@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' data: blob:; connect-src 'self' data: blob:; worker-src 'self' blob:; manifest-src 'self'; form-action 'none'; base-uri 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<title>UUID Forge — Free UUID v4, UUID v7, ULID &amp; NanoID Generator | S3eidat Tools</title>
+<meta name="description" content="Generate UUID v4, time-ordered UUID v7, ULID and NanoID in bulk (up to 1000), uppercase or without dashes, and validate any UUID to see its version and timestamp. Free, private, cryptographically random.">
+<meta property="og:title" content="UUID Forge — free bulk UUID, ULID and NanoID generator">
+<meta property="og:description" content="UUID v4, v7, ULID and NanoID in bulk, plus a UUID validator. Runs 100% in your browser.">
+<meta property="og:image" content="screenshot.png">
+<link rel="icon" href="kit/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="kit/kit.css">
+<link rel="stylesheet" href="app.css">
+<script src="kit/kit.js"></script>
+</head>
+<body data-tool="uuid-forge">
+<main class="s3-main">
+  <section class="s3-hero">
+    <h1>UUID Forge</h1>
+    <p>Generate UUID v4, time-ordered UUID v7, ULID and NanoID in bulk with your browser's cryptographic random generator. Paste any ID to check its version.</p>
+  </section>
+
+  <div class="grid-2 uf-grid">
+    <section class="card stack">
+      <h2>Generate</h2>
+      <div class="seg" id="kind" role="group" aria-label="ID type">
+        <button aria-pressed="true" data-v="v4">UUID v4</button>
+        <button aria-pressed="false" data-v="v7">UUID v7</button>
+        <button aria-pressed="false" data-v="ulid">ULID</button>
+        <button aria-pressed="false" data-v="nano">NanoID</button>
+      </div>
+      <p class="faint" id="kindHelp"></p>
+      <div class="row">
+        <label class="field uf-count">How many<input class="input" id="count" type="number" min="1" max="1000" value="10" inputmode="numeric"></label>
+        <div class="row uf-opts" id="uuidOpts">
+          <label class="check"><input type="checkbox" id="upper"> Uppercase</label>
+          <label class="check"><input type="checkbox" id="nodash"> No dashes</label>
+        </div>
+      </div>
+      <div class="stack" id="nanoOpts" hidden>
+        <div class="row">
+          <label class="field uf-count">Length<input class="input" id="nanoLen" type="number" min="2" max="128" value="21" inputmode="numeric"></label>
+          <label class="field grow">Alphabet preset
+            <select class="select" id="nanoPreset">
+              <option value="A-Za-z0-9_-">URL-safe (default)</option>
+              <option value="A-Za-z0-9">Alphanumeric</option>
+              <option value="0-9a-f">Hex (lowercase)</option>
+              <option value="0-9">Numbers</option>
+              <option value="nolook">No look-alikes</option>
+              <option value="custom">Custom…</option>
+            </select>
+          </label>
+        </div>
+        <label class="field">Alphabet<input class="input mono" id="nanoAlpha" spellcheck="false" autocomplete="off"></label>
+        <span class="faint" id="nanoInfo"></span>
+      </div>
+      <div class="row">
+        <button class="btn primary big" id="gen"><svg class="i"><use href="#i-refresh"/></svg>Generate</button>
+        <span class="faint"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></span>
+      </div>
+    </section>
+
+    <section class="card stack">
+      <div class="row between">
+        <h2>Result <small id="resInfo"></small></h2>
+        <div class="row">
+          <button class="btn small" id="copyAll"><svg class="i"><use href="#i-copy"/></svg>Copy all</button>
+          <button class="btn small" id="save"><svg class="i"><use href="#i-download"/></svg>.txt</button>
+        </div>
+      </div>
+      <ol class="uf-list out" id="list" aria-label="Generated IDs"></ol>
+      <p class="faint">Click any ID to copy it.</p>
+    </section>
+  </div>
+
+  <section class="card mt stack">
+    <h2>Validate &amp; inspect</h2>
+    <label class="field">Paste a UUID or ULID
+      <input class="input mono" id="check" spellcheck="false" autocomplete="off" placeholder="e.g. 017f22e2-79b0-7cc3-98c4-dc0c0c07398f">
+    </label>
+    <div class="row"><span class="chip" id="checkChip">Waiting for an ID</span></div>
+    <div class="tbl-wrap" id="checkWrap" hidden><table class="tbl"><tbody id="checkRows"></tbody></table></div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>
